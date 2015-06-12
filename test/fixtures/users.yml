@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cu_id: 1
+  name: MyString
+  email: MyString
+  location: MyString
+
+two:
+  cu_id: 1
+  name: MyString
+  email: MyString
+  location: MyString

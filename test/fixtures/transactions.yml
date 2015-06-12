@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  partner: MyString
+  cu_id: 1
+  order_type: 1
+  total_price: 1.5
+
+two:
+  user_id: 
+  partner: MyString
+  cu_id: 1
+  order_type: 1
+  total_price: 1.5

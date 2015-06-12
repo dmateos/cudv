@@ -1,0 +1,17 @@
+default: &default
+  adapter: mysql2
+  host: localhost
+  username: cudv
+  password: cudv
+
+development:
+  <<: *default
+  database: cudv
+
+test:
+  <<: *default
+  database: cudv_test
+
+production:
+  <<: *default
+  database: cudv
