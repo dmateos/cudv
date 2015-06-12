@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "order API" do
+describe "Order API" do
   describe "GET /api/v1/orders/" do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:order) { FactoryGirl.create(:order) }

@@ -11,11 +11,11 @@ describe "Users API" do
     end
   end
 
-  describe "GET /api/v1/users/user" do
+  describe "GET /api/v1/users/:id" do
     let!(:user) { FactoryGirl.create(:user) }
 
     it "returns a single user" do
-      get "/api/v1/users/user?id=#{user.id}"
+      get "/api/v1/users/#{user.id}"
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)["id"]).to eq(user.id)
     end

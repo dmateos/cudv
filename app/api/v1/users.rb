@@ -14,8 +14,10 @@ module V1
         requires :id, type: Integer
       end
 
-      get :user do
-        User.find(params[:id])
+      route_param :id do
+        get do
+          User.find(params[:id])
+        end
       end
 
       desc "Adds a new user"

@@ -13,12 +13,14 @@ module V1
       params do
         requires :name, type: String
         requires :current_cost, type: Float
+        requires :cu_id, type: Integer
       end
 
       post do
         Product.create!({
           name: params[:name],
-          current_cost: params[:current_cost]
+          current_cost: params[:current_cost],
+          cu_id: params[:cu_id]
         })
       end
     end

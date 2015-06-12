@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(version: 20150610164949) do
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.string   "partner",     limit: 255
-    t.integer  "cu_id",       limit: 4
-    t.integer  "order_type",  limit: 4
-    t.float    "total_price", limit: 24
+    t.integer  "user_id",     limit: 4,   null: false
+    t.string   "partner",     limit: 255, null: false
+    t.integer  "cu_id",       limit: 4,   null: false
+    t.integer  "order_type",  limit: 4,   null: false
+    t.float    "total_price", limit: 24,  null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
@@ -26,25 +26,22 @@ ActiveRecord::Schema.define(version: 20150610164949) do
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "orders_products", id: false, force: :cascade do |t|
-    t.integer "order_id",   limit: 4
-    t.integer "product_id", limit: 4
+    t.integer "order_id",   limit: 4, null: false
+    t.integer "product_id", limit: 4, null: false
   end
 
-  add_index "orders_products", ["order_id"], name: "index_orders_products_on_order_id", using: :btree
-  add_index "orders_products", ["product_id"], name: "index_orders_products_on_product_id", using: :btree
-
   create_table "products", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.float    "current_cost", limit: 24
-    t.integer  "cu_id",        limit: 4
+    t.string   "name",         limit: 255, null: false
+    t.float    "current_cost", limit: 24,  null: false
+    t.integer  "cu_id",        limit: 4,   null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer  "cu_id",      limit: 4
-    t.string   "name",       limit: 255
-    t.string   "email",      limit: 255
+    t.integer  "cu_id",      limit: 4,   null: false
+    t.string   "name",       limit: 255, null: false
+    t.string   "email",      limit: 255, null: false
     t.string   "location",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
