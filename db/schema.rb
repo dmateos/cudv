@@ -13,22 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150610164949) do
 
-  create_table "products", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.float    "current_cost", limit: 24
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  create_table "products_transactions", id: false, force: :cascade do |t|
-    t.integer "transaction_id", limit: 4
-    t.integer "product_id",     limit: 4
-  end
-
-  add_index "products_transactions", ["product_id"], name: "index_products_transactions_on_product_id", using: :btree
-  add_index "products_transactions", ["transaction_id"], name: "index_products_transactions_on_transaction_id", using: :btree
-
-  create_table "transactions", force: :cascade do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
     t.string   "partner",     limit: 255
     t.integer  "cu_id",       limit: 4
@@ -38,7 +23,23 @@ ActiveRecord::Schema.define(version: 20150610164949) do
     t.datetime "updated_at",              null: false
   end
 
-  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "orders_products", id: false, force: :cascade do |t|
+    t.integer "order_id",   limit: 4
+    t.integer "product_id", limit: 4
+  end
+
+  add_index "orders_products", ["order_id"], name: "index_orders_products_on_order_id", using: :btree
+  add_index "orders_products", ["product_id"], name: "index_orders_products_on_product_id", using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.float    "current_cost", limit: 24
+    t.integer  "cu_id",        limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.integer  "cu_id",      limit: 4
@@ -49,5 +50,5 @@ ActiveRecord::Schema.define(version: 20150610164949) do
     t.datetime "updated_at",             null: false
   end
 
-  add_foreign_key "transactions", "users"
+  add_foreign_key "orders", "users"
 end

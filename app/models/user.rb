@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  has_many :transactions, dependent: :destroy
+  has_many :orders, dependent: :destroy
 end

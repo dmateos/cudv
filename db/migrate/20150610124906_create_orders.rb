@@ -1,6 +1,6 @@
-class CreateTransactions < ActiveRecord::Migration
+class CreateOrders < ActiveRecord::Migration
   def change
-    create_table :transactions do |t|
+    create_table :orders do |t|
       t.references :user, index: true, foreign_key: true
       t.string :partner
       t.integer :cu_id
