@@ -1,10 +1,10 @@
 module V1
-  class Orders < Grape::API 
+  class Orders < Grape::API
     version "v1"
     format :json
 
     resource :orders do
-      desc "Return all orders" 
+      desc "Return all orders"
       get do
         Order.all
       end
