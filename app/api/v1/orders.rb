@@ -16,9 +16,20 @@ module V1
         requires :cu_id, type: Integer
         requires :order_type, type: String
         requires :total_price, type: Float
+        requires :products, type: Array
       end
 
       post do
+        if User.find_by_id(params[:user_id]).nil?
+          error!("User #{params[:user_id]} does not exist")
+        end
+
+        begin
+          Product.find(params[:products])
+        rescue
+            error!("Product does not exsist")
+        end
+
         Order.create!({
           user_id: params[:user_id],
           partner: params[:partner],
