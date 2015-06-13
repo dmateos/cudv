@@ -15,9 +15,9 @@ describe "Users API" do
     let!(:user) { FactoryGirl.create(:user) }
 
     it "returns a single user" do
-      get "/api/v1/users/#{user.id}"
+      get "/api/v1/users/#{user.cu_id}"
       expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)["id"]).to eq(user.id)
+      expect(JSON.parse(response.body)["cu_id"]).to eq(user.cu_id)
     end
   end
 

@@ -16,7 +16,7 @@ module V1
 
       route_param :cu_id do
         get do
-          Product.find(params[:cu_id])
+          Product.find_by_cu_id(params[:cu_id])
         end
       end
 

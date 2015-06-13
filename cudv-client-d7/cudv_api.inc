@@ -14,12 +14,13 @@ function cudv_client_post($resource, $data) {
 }
 
 function cudv_client_get($resource, $data) {
-    $curl = curl_init("http://cudv.dev.mateos.cc/api/v1/$resource");
+    $curl = curl_init("http://cudv.dev.mateos.cc/api/v1/$resource/$data");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     return json_decode(curl_exec($curl));
 }
 
 function cudv_client_get_user($id) {
-    return cudv_client_get("users", array("id" => $id));
+    return cudv_client_get("users", $id);
 }
 
 function cudv_client_post_user($id, $name, $email, $location) {
@@ -27,7 +28,7 @@ function cudv_client_post_user($id, $name, $email, $location) {
 }
 
 function cudv_client_get_product($id) {
-    return cudv_client_get("products", array("id" => $id));
+    return cudv_client_get("products", $id);
 }
 
 function cudv_client_post_product($id, $name, $sell_price) {
@@ -38,8 +39,10 @@ function cudv_client_get_order() {
 
 }
 
-function cudv_client_post_order() {
-
+function cudv_client_post_order($id, $user_id, $partner, $order_type, $total_price, $products) {
+    cudv_client_post("orders", array("cu_id" => $id, "user_id" => $user_id, 
+        "partner" => $partner, "order_type" => $order_type, "total_price" => $total_price,
+        "products" => $products));
 }
 
 

@@ -20,23 +20,27 @@ module V1
       end
 
       post do
-        if User.find_by_id(params[:user_id]).nil?
+        if User.find_by_cu_id(params[:user_id]).nil?
           error!("User #{params[:user_id]} does not exist")
         end
 
-        begin
-          Product.find(params[:products])
-        rescue
-            error!("Product does not exsist")
+        if Product.find_by_cu_id(params[:products]).nil?
+          error!("Product does not exsist")
         end
 
-        Order.create!({
-          user_id: params[:user_id],
+        order = Order.new({
+          user: User.find_by_cu_id(params[:user_id]),
           partner: params[:partner],
           cu_id: params[:cu_id],
           order_type: params[:order_type],
           total_price: params[:total_price]
         })
+
+        params[:products].each do |p|
+          order.products << Product.find_by_cu_id(p)
+        end
+
+        order.save
       end
     end
   end

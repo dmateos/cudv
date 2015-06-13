@@ -16,7 +16,7 @@ module V1
 
       route_param :cu_id do
         get do
-          User.find(params[:cu_id])
+          User.find_by_cu_id(params[:cu_id])
         end
       end
 

@@ -2,9 +2,9 @@
 require_once("cudv_api.inc");
 
 function cudv_client_d7_create_user_if_none($user) {
-    $ex_user = cudv_client_get_user($user->id);
+    $ex_user = cudv_client_get_user($user->uid);
     if(empty($ex_user)) {
-        cudv_client_post_user($user->id, $user->name, $user->email, "test/test");
+        cudv_client_post_user($user->uid, $user->name, $user->mail, "test/test");
     }
 }
 
@@ -14,19 +14,20 @@ function cudv_client_d7_user_update(&$edit, $account, $category) {
 
 function cudv_client_d7_uc_order($op, &$order, $arg2) {
     global $user;
+    $products = array();
 
     switch($op) {
-    case "update":
     case "submit":
-        if($arg2 == "new") {
-            foreach($order->products as $product) {
-                $ex_prod = cudv_client_get_product($product->nid);
-                if(empty($ex_prod)) {
-                    cudv_client_post_product($product->nid, $product->name, $product->sell_price); 
-                }
+        foreach($order->products as $product) {
+            drupal_set_message($product->nid);
+            $ex_prod = cudv_client_get_product($product->nid);
+            if(empty($ex_prod)) {
+                cudv_client_post_product($product->nid, $product->title, $product->sell_price); 
+                $products[] = $product->nid;
             }
-            cudv_client_d7_create_user_if_none($user);
         }
+        cudv_client_d7_create_user_if_none($user);
+        cudv_client_post_order($order->order_id, $user->uid, "test partner", "discount", 1000, $products);
         break;
     }
 }
