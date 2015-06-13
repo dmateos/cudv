@@ -11,12 +11,12 @@ module V1
 
       desc "Returns a single user"
       params do
-        requires :id, type: Integer
+        requires :cu_id, type: Integer
       end
 
-      route_param :id do
+      route_param :cu_id do
         get do
-          User.find(params[:id])
+          User.find(params[:cu_id])
         end
       end
 

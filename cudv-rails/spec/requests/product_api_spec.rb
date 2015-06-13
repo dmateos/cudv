@@ -11,6 +11,16 @@ describe "Products API" do
     end    
   end
 
+  describe "GET /api/v1/products/:id" do
+    let!(:product) { FactoryGirl.create(:product) }
+
+    it "returns a single product" do
+      get "/api/v1/products/#{product.id}"
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)["id"]).to eq(product.id)
+    end
+  end
+
   describe "POST /api/v1/products/" do
     let(:new_product) { { name: "test product", current_cost: 0.00, cu_id: 2 } } 
 

@@ -1,0 +1,34 @@
+<?
+require_once("cudv_api.inc");
+
+function cudv_client_d7_create_user_if_none($user) {
+    $ex_user = cudv_client_get_user($user->id);
+    if(empty($ex_user)) {
+        cudv_client_post_user($user->id, $user->name, $user->email, "test/test");
+    }
+}
+
+function cudv_client_d7_user_update(&$edit, $account, $category) {
+    cudv_client_d7_create_user_if_none($account);
+}
+
+function cudv_client_d7_uc_order($op, &$order, $arg2) {
+    global $user;
+
+    switch($op) {
+    case "update":
+    case "submit":
+        if($arg2 == "new") {
+            foreach($order->products as $product) {
+                $ex_prod = cudv_client_get_product($product->nid);
+                if(empty($ex_prod)) {
+                    cudv_client_post_product($product->nid, $product->name, $product->sell_price); 
+                }
+            }
+            cudv_client_d7_create_user_if_none($user);
+        }
+        break;
+    }
+}
+
+?>

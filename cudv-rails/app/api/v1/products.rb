@@ -9,6 +9,17 @@ module V1
         Product.all
       end
 
+      desc "Return a single product"
+      params do
+        requires :cu_id, type: Integer
+      end 
+
+      route_param :cu_id do
+        get do
+          Product.find(params[:cu_id])
+        end
+      end
+
       desc "Add a new product"
       params do
         requires :name, type: String
