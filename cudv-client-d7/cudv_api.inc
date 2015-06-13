@@ -36,7 +36,7 @@ function cudv_client_post_product($id, $name, $sell_price) {
 }
 
 function cudv_client_get_order() {
-
+    return cudv_client_get("orders", $id);
 }
 
 function cudv_client_post_order($id, $user_id, $partner, $order_type, $total_price, $products) {

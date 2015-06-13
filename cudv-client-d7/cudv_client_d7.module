@@ -19,7 +19,6 @@ function cudv_client_d7_uc_order($op, &$order, $arg2) {
     switch($op) {
     case "submit":
         foreach($order->products as $product) {
-            drupal_set_message($product->nid);
             $ex_prod = cudv_client_get_product($product->nid);
             if(empty($ex_prod)) {
                 cudv_client_post_product($product->nid, $product->title, $product->sell_price); 
