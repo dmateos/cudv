@@ -22,8 +22,8 @@ function cudv_client_d7_uc_order($op, &$order, $arg2) {
             $ex_prod = cudv_client_get_product($product->nid);
             if(empty($ex_prod)) {
                 cudv_client_post_product($product->nid, $product->title, $product->sell_price); 
-                $products[] = $product->nid;
             }
+            $products[] = $product->nid;
         }
         cudv_client_d7_create_user_if_none($user);
         cudv_client_post_order($order->order_id, $user->uid, "test partner", "discount", 1000, $products);

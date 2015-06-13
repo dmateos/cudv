@@ -16,7 +16,7 @@ describe "Order API" do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:product) { FactoryGirl.create(:product) }
     let(:new_order) { 
-      { user_id: user.id, partner: "test", cu_id: 1, order_type:"test", total_price: 10.0, products: [ product.id ]  } 
+      { user_id: user.cu_id, partner: "test", cu_id: 1, order_type:"test", total_price: 10.0, products: [ product.cu_id ]  } 
     }
 
     it "adds a new order" do
