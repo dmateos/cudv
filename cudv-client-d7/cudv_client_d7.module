@@ -8,7 +8,7 @@ function cudv_client_d7_create_user_if_none($user) {
     }
 }
 
-function cudv_client_d7_user_update(&$edit, $account, $category) {
+function cudv_client_d7_user_insert(&$edit, $account, $category) {
     cudv_client_d7_create_user_if_none($account);
 }
 
