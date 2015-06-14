@@ -4,14 +4,14 @@ require_once("cudv_api.inc");
 function cudv_client_d7_create_user_if_none($user) {
     $ex_user = cudv_client_get_user($user->uid);
     if(empty($ex_user)) {
-        cudv_client_post_user($user->uid, $user->name, $user->mail, "test/test");
+        cudv_api_post_user($user->uid, $user->name, $user->mail, "test/test");
     }
 }
 
 function cudv_client_d7_create_product_if_none($product) {
     $ex_prod = cudv_client_get_product($product->nid);
     if(empty($ex_prod)) {
-        cudv_client_post_product($product->nid, $product->title, $product->sell_price); 
+        cudv_api_post_product($product->nid, $product->title, $product->sell_price); 
     }
 }
 
@@ -20,7 +20,6 @@ function cudv_client_d7_get_product_partner($product) {
     $partner_term = taxonomy_term_load($node->field_prodvendor[LANGUAGE_NONE][0]['tid']);
     return $partner_term->name;
 }
-
 
 /*
  * Thar be hooks here.
@@ -42,7 +41,7 @@ function cudv_client_d7_uc_order($op, &$order, $arg2) {
         $partner = cudv_client_d7_get_product_partner(reset($order->products));
 
         cudv_client_d7_create_user_if_none($user);
-        cudv_client_post_order($order->order_id, $user->uid, $partner, "discount", $order->order_total, $products);
+        cudv_api_post_order($order->order_id, $user->uid, $partner, "discount", $order->order_total, $products);
         break;
     }
 }
