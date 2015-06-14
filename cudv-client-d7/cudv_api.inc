@@ -47,5 +47,4 @@ function cudv_client_post_order($id, $user_id, $partner, $order_type, $total_pri
         "products" => $products));
 }
 
-
 ?>
