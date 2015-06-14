@@ -15,14 +15,18 @@ function cudv_client_d7_create_product_if_none($product) {
     }
 }
 
-function cudv_client_d7_user_insert(&$edit, $account, $category) {
-    cudv_client_d7_create_user_if_none($account);
-}
-
 function cudv_client_d7_get_product_partner($product) {
     $node = node_load($product->nid);
     $partner_term = taxonomy_term_load($node->field_prodvendor[LANGUAGE_NONE][0]['tid']);
     return $partner_term->name;
+}
+
+
+/*
+ * Thar be hooks here.
+ */
+function cudv_client_d7_user_insert(&$edit, $account, $category) {
+    cudv_client_d7_create_user_if_none($account);
 }
 
 function cudv_client_d7_uc_order($op, &$order, $arg2) {
