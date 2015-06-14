@@ -2,6 +2,12 @@
 
 define("ENDPOINT", "http://cudv.dev.mateos.cc");
 
+function _cudv_api_get($resource, $data) {
+    $curl = curl_init(ENDPOINT."/api/v1/$resource/$data");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    return json_decode(curl_exec($curl));
+}
+
 function _cudv_api_post($resource, $data) {
     $data = json_encode($data);
     $curl = curl_init(ENDPOINT."/api/v1/$resource");
@@ -12,12 +18,6 @@ function _cudv_api_post($resource, $data) {
         "Content-Type: application/json",
         "Content-Length: " . strlen($data)
     ));
-    return json_decode(curl_exec($curl));
-}
-
-function _cudv_api_get($resource, $data) {
-    $curl = curl_init(ENDPOINT."/api/v1/$resource/$data");
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     return json_decode(curl_exec($curl));
 }
 

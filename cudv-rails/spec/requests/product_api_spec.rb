@@ -7,7 +7,7 @@ describe "Products API" do
     it "returns all the products" do
       get "/api/v1/products/"
       expect(response.status).to eq(200)
-      expect(JSON.parse(response.body).first["cu_id"]).to eq(product.cu_id)
+      expect(JSON.parse(response.body).first["id"]).to eq(product.id)
     end    
   end
 
@@ -17,7 +17,7 @@ describe "Products API" do
     it "returns a single product" do
       get "/api/v1/products/#{product.cu_id}"
       expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)["cu_id"]).to eq(product.cu_id)
+      expect(JSON.parse(response.body)["id"]).to eq(product.id)
     end
   end
 

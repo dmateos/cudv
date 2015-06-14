@@ -9,6 +9,17 @@ module V1
         Order.all
       end
 
+      desc "Return a single order"
+      params do
+        requires :cu_id, type: Integer
+      end
+
+      route_param :cu_id do
+        get do
+          Order.find_by_cu_id(params[:cu_id])
+        end
+      end
+
       desc "Add a new order"
       params do
         requires :user_id, type: Integer

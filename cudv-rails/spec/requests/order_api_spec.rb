@@ -12,6 +12,17 @@ describe "Order API" do
     end
   end
 
+  describe "GET /api/v1/orders/:id" do 
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:order) { FactoryGirl.create(:order) }
+
+    it "returns a single order" do
+      get "/api/v1/orders/#{order.cu_id}"
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)["id"]).to eq(order.id)
+    end
+  end
+
   describe "POST /api/v1/orders/" do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:product) { FactoryGirl.create(:product) }

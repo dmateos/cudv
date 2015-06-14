@@ -7,7 +7,7 @@ describe "Users API" do
     it "returns all the users" do
       get "/api/v1/users/"
       expect(response.status).to eq(200)
-      expect(JSON.parse(response.body).first["name"]).to eq(user.name)
+      expect(JSON.parse(response.body).first["id"]).to eq(user.id)
     end
   end
 
@@ -17,7 +17,7 @@ describe "Users API" do
     it "returns a single user" do
       get "/api/v1/users/#{user.cu_id}"
       expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)["cu_id"]).to eq(user.cu_id)
+      expect(JSON.parse(response.body)["id"]).to eq(user.id)
     end
   end
 
