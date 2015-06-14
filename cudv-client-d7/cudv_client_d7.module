@@ -2,14 +2,14 @@
 require_once("cudv_api.inc");
 
 function cudv_client_d7_create_user_if_none($user) {
-    $ex_user = cudv_client_get_user($user->uid);
+    $ex_user = cudv_api_get_user($user->uid);
     if(empty($ex_user)) {
         cudv_api_post_user($user->uid, $user->name, $user->mail, "test/test");
     }
 }
 
 function cudv_client_d7_create_product_if_none($product) {
-    $ex_prod = cudv_client_get_product($product->nid);
+    $ex_prod = cudv_api_get_product($product->nid);
     if(empty($ex_prod)) {
         cudv_api_post_product($product->nid, $product->title, $product->sell_price); 
     }
