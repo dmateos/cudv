@@ -8,6 +8,13 @@ function cudv_client_d7_create_user_if_none($user) {
     }
 }
 
+function cudv_client_d7_create_product_if_none($product) {
+    $ex_prod = cudv_client_get_product($product->nid);
+    if(empty($ex_prod)) {
+        cudv_client_post_product($product->nid, $product->title, $product->sell_price); 
+    }
+}
+
 function cudv_client_d7_user_insert(&$edit, $account, $category) {
     cudv_client_d7_create_user_if_none($account);
 }
@@ -19,10 +26,7 @@ function cudv_client_d7_uc_order($op, &$order, $arg2) {
     switch($op) {
     case "submit":
         foreach($order->products as $product) {
-            $ex_prod = cudv_client_get_product($product->nid);
-            if(empty($ex_prod)) {
-                cudv_client_post_product($product->nid, $product->title, $product->sell_price); 
-            }
+            cudv_client_d7_create_product_if_none($product);
             $products[] = $product->nid;
         }
         cudv_client_d7_create_user_if_none($user);
