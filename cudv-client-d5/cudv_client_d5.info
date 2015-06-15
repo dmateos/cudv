@@ -1,0 +1,4 @@
+name = cudv_client
+description = "CU dv client"
+core = 5.x
+version = "5.x-1.0"

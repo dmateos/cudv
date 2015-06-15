@@ -2,9 +2,10 @@ google.load('visualization', '1.1', {'packages':['corechart', 'bar']});
 google.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  test_chart();
-  new_user_chart();
-  total_cash_chart();
+  test_chart("test_chart");
+  new_user_chart("chart_new_users");
+  total_cash_chart("chart_total_cash");
+  orders_chart("chart_orders");
 }
 
 function test_chart() {
@@ -69,5 +70,24 @@ function total_cash_chart() {
 
     var chart = new google.charts.Bar(document.getElementById('chart_total_cash'));
     chart.draw(data, options);
+}
 
+function orders_chart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Year', 'Sales', 'Expenses'],
+    ['2004',  1000,      400],
+    ['2005',  1170,      460],
+    ['2006',  660,       1120],
+    ['2007',  1030,      540]
+  ]);
+
+  var options = {
+    title: 'Company Performance',
+    curveType: 'function',
+    legend: { position: 'bottom' }
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_orders'));
+
+  chart.draw(data, options);
 }

@@ -47,7 +47,7 @@ group :development, :test do
 end
 
 gem "grape"
-gem "d3-rails"
 gem "mysql2"
 gem "twitter-bootstrap-rails"
-
+gem "chartkick"
+gem "groupdate"
