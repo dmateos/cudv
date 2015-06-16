@@ -4,35 +4,37 @@
     <%= line_chart User.group_by_day(:created_at).count %>
   </div>
   <div class="col-md-4">
-    <h3> Orders </h3>
+    <h3> Partners being ordered </h3>
+    <%= pie_chart Order.group(:partner).count %>
   </div>
   <div class="col-md-4">
-    <h3> Latest products ordered </h3>
+    <h3> Top products </h3>
+    <table class="table">
+      <tr>
+        <th> Product </th>
+        <th> Count </th> 
+      </tr>
+      <% Product.order(total_orders: :desc).limit(5).each do |p| %>
+        <tr>
+          <td> <%= p.name %> </td>
+          <td> <%= p.total_orders %> </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-4">
-    <h3> Orders per day </h3>
+    <h3> Orders per hour </h3>
+    <%= column_chart Order.group_by_hour(:created_at).count %>
+  </div>
+  <div class="col-md-4">
+    <h3> Orders per Day </h3>
+    <%= column_chart Order.group_by_day(:created_at).count %>
+  </div>
+  <div class="col-md-4">
+    <h3> Orders per week </h3>
     <%= column_chart Order.group_by_week(:created_at).count %>
-  </div>
-  <div class="col-md-4">
-    <h3> Orders by partner </h3>
-    <%= pie_chart Order.all.group(:partner).count %>
-  </div>
-  <div class="col-md-4">
-    <h3> Top Products </h3>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-    <h3> Other </h3>
-  </div>
-  <div class="col-md-4">
-    <h3> Other </h3>
-  </div>
-  <div class="col-md-4">
-    <h3> Other </h3>
   </div>
 </div>

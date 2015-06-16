@@ -34,5 +34,12 @@ describe "Order API" do
       post "/api/v1/orders/", new_order
       expect(response.status).to eq(201)
     end
+
+    it "increments the products order_count on a new order" do
+      total_orders = product.total_orders
+      post "/api/v1/orders/", new_order
+      product.reload
+      expect(product.total_orders).to eq(total_orders +1)
+    end
   end
 end

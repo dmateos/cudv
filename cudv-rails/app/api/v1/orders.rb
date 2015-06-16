@@ -48,7 +48,10 @@ module V1
         })
 
         params[:products].each do |p|
-          order.products << Product.find_by_cu_id(p)
+          product = Product.find_by_cu_id(p)
+          order.products << product
+          product.total_orders += 1
+          product.save
         end
 
         order.save
