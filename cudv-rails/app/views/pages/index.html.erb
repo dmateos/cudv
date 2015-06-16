@@ -1,11 +1,10 @@
 <div class="row">
   <div class="col-md-4">
-    <h3> New users </h3>
-    <div id="chart_new_users"></div>
+    <h3> Users </h3>
+    <%= line_chart User.group_by_day(:created_at).count %>
   </div>
   <div class="col-md-4">
     <h3> Orders </h3>
-    <div id="chart_orders"></div>
   </div>
   <div class="col-md-4">
     <h3> Latest products ordered </h3>
@@ -14,12 +13,12 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h3> Total cash this week </h3>
-    <div id="chart_total_cash"></div>
+    <h3> Orders per day </h3>
+    <%= column_chart Order.group_by_week(:created_at).count %>
   </div>
   <div class="col-md-4">
-    <h3> Other </h3>
-    <div id="test_chart"></div>
+    <h3> Orders by partner </h3>
+    <%= pie_chart Order.all.group(:partner).count %>
   </div>
   <div class="col-md-4">
     <h3> Top Products </h3>
