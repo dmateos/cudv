@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616101327) do
+ActiveRecord::Schema.define(version: 20150617090704) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id",     limit: 4,   null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150616101327) do
     t.float    "total_price", limit: 24,  null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.datetime "ordered_at"
   end
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
@@ -40,12 +41,13 @@ ActiveRecord::Schema.define(version: 20150616101327) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer  "cu_id",      limit: 4,   null: false
-    t.string   "name",       limit: 255, null: false
-    t.string   "email",      limit: 255, null: false
-    t.string   "location",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "cu_id",         limit: 4,   null: false
+    t.string   "name",          limit: 255, null: false
+    t.string   "email",         limit: 255, null: false
+    t.string   "location",      limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.datetime "registered_at"
   end
 
   add_foreign_key "orders", "users"

@@ -28,6 +28,7 @@ module V1
         requires :order_type, type: String
         requires :total_price, type: Float
         requires :products, type: Array
+        optional :ordered_at, type: String
       end
 
       post do
@@ -46,6 +47,8 @@ module V1
           order_type: params[:order_type],
           total_price: params[:total_price]
         })
+
+        order.ordered_at = DateTime.parse(params[:ordered_at]) if params[:ordered_at]
 
         params[:products].each do |p|
           product = Product.find_by_cu_id(p)

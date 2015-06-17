@@ -26,6 +26,7 @@ module V1
         requires :name, type: String
         requires :email, type: String
         requires :location, type: String
+        requires :registered_at, type: String
       end
 
       post do
@@ -33,7 +34,8 @@ module V1
           cu_id: params[:cu_id],
           name: params[:name],
           email: params[:email],
-          location: params[:location]
+          location: params[:location],
+          registered_at: DateTime.parse(params[:registered_at])
         })
       end
     end

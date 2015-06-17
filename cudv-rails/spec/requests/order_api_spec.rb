@@ -41,5 +41,13 @@ describe "Order API" do
       product.reload
       expect(product.total_orders).to eq(total_orders +1)
     end
+
+    it "accepts an order with a manually defined ordered_at time" do
+
+    end
+
+    it "accepts an order with no ordered_at time" do
+
+    end
   end
 end
