@@ -22,11 +22,12 @@ describe "Users API" do
   end
 
   describe "POST /api/v1/users/" do
-    let(:new_user) { { cu_id: 1, name: "test", email: "test@test.com", location: "Test/Test" } }
+    let(:new_user) { { cu_id: 1, name: "test", email: "test@test.com", location: "Test/Test", registered_at: DateTime.now  } }
 
     it "adds a new user" do
       post "/api/v1/users/", new_user
       expect(response.status).to eq(201)
+      expect(User.find_by_cu_id(1)).to_not be_nil
     end
   end
 end
