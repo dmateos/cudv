@@ -25,8 +25,9 @@ function cudv_api_get_user($id) {
     return _cudv_api_get("users", $id);
 }
 
-function cudv_api_post_user($id, $name, $email, $location) {
-    return _cudv_api_post("users", array("cu_id" => $id, "name" => $name, "email" => $email, "location" => $location));
+function cudv_api_post_user($id, $name, $email, $location, $registered_at) {
+    return _cudv_api_post("users", 
+        array("cu_id" => $id, "name" => $name, "email" => $email, "location" => $location, "registered_at" => date('Y-m-d H:i:s', $registered_at)));
 }
 
 function cudv_api_get_product($id) {
@@ -41,10 +42,21 @@ function cudv_api_get_order() {
     return _cudv_api_get("orders", $id);
 }
 
-function cudv_api_post_order($id, $user_id, $partner, $order_type, $total_price, $products) {
-    return _cudv_api_post("orders", array("cu_id" => $id, "user_id" => $user_id, 
-        "partner" => $partner, "order_type" => $order_type, "total_price" => $total_price,
-        "products" => $products));
+function cudv_api_post_order($id, $user_id, $partner, $order_type, $total_price, $products, $ordered_at = NULL) {
+    $post = array(
+        "cu_id" => $id,
+        "user_id" => $user_id,
+        "partner" => $partner,
+        "order_type" => $order_type,
+        "total_price" => $total_price,
+        "products" => $products
+    );
+
+    if($ordered_at) {
+        $post["ordered_at"] = date('Y-m-d H:i:s', $ordered_at);
+    }
+
+    return _cudv_api_post("orders", $post);
 }
 
 ?>

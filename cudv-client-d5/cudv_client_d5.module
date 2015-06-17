@@ -10,7 +10,7 @@ function cudv_client_d5_create_user_if_none($user) {
     $d7id = cudv_client_d5_get_d7_uid($user);
     $ex_user = cudv_api_get_user($d7id);
     if(empty($ex_user)) {
-        cudv_api_post_user($d7id, $user->name, $user->mail, "test/test");
+        cudv_api_post_user($d7id, $user->name, $user->mail, "test/test", $user->created);
     }
     return $d7id;
 }

@@ -4,7 +4,7 @@ require_once("cudv_api.inc");
 function cudv_client_d7_create_user_if_none($user) {
     $ex_user = cudv_api_get_user($user->uid);
     if(empty($ex_user)) {
-        cudv_api_post_user($user->uid, $user->name, $user->mail, "test/test");
+        cudv_api_post_user($user->uid, $user->name, $user->mail, "test/test", $user->created);
     }
 }
 
