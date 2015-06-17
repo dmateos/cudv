@@ -5,13 +5,23 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h3> Users (7 days)</h3>
-    <%= line_chart User.where(registered_at: 7.days.ago..Date.today).group_by_day(:registered_at).count %>
+    <table class="table">
+      <h3> Top users </h3>
+      <tr>
+        <th> User </th>
+        <th> Orders </th>
+        <th> $ </th>
+      </tr>
+      <% User.order(orders_count: :desc).limit(9).drop(2).each do |u| %>
+        <tr>
+          <td> <%= u.name %> </td>
+          <td> <%= u.orders_count %> </td>
+          <td> $<%= number_with_delimiter(u.orders.sum(:total_price).floor) %> </td>
+        </tr>
+      <% end %>
+    </table>
   </div>
-  <div class="col-md-4">
-    <h3> Partners being ordered (Ever) </h3>
-    <%= pie_chart Order.group(:partner).count %>
-  </div>
+
   <div class="col-md-4">
     <h3> Top products </h3>
     <table class="table">
@@ -27,17 +37,7 @@
       <% end %>
     </table>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-md-4">
-    <h3> Orders per day (Last 7 days) </h3>
-    <%= column_chart Order.where(ordered_at: 1.week.ago..Date.today).group_by_day(:ordered_at).count %>
-  </div>
-  <div class="col-md-4">
-    <h3> Orders per week (Last 7 weeks) </h3>
-    <%= column_chart Order.where(ordered_at: 7.week.ago..Date.today).group_by_week(:ordered_at).count %>
-  </div>
   <div class="col-md-4">
     <h3> Latest orders </h3>
       <table class="table">
@@ -46,7 +46,7 @@
           <th> User </th>
           <th> Date </th>
         </tr>
-      <% Order.last(5).reverse.each do |o| %>
+      <% Order.last(7).reverse.each do |o| %>
         <tr>
           <td> <%= o.cu_id %>
           <td> <%= o.user.name %> </td>
@@ -59,11 +59,32 @@
 
 <div class="row">
   <div class="col-md-4">
+    <h3> Users (7 days)</h3>
+    <%= line_chart User.where(registered_at: 7.days.ago..Date.today).group_by_day(:registered_at).count %>
+  </div>
+  <div class="col-md-8">
+    <h3> Partners being ordered (Ever) </h3>
+    <%= pie_chart Order.group(:partner).count %>
+  </div>
+ </div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3> Orders per day (Last 7 days) </h3>
+    <%= column_chart Order.where(ordered_at: 1.week.ago..Date.today).group_by_day(:ordered_at).count %>
+  </div>
+  <div class="col-md-4">
+    <h3> Orders per week (Last 7 weeks) </h3>
+    <%= column_chart Order.where(ordered_at: 7.week.ago..Date.today).group_by_week(:ordered_at).count %>
+  </div>
+  <div class="col-md-4">
     <h3> Orders per month (Last 12 months)</h3>
     <%= column_chart Order.where(ordered_at: 12.months.ago..Date.today).group_by_month(:ordered_at).count %>
   </div>
+</div>
 
-  <div class="col-md-8">
+<div class="row">
+    <div class="col-md-12">
     <h3> Orders per year </h3>
     <%= column_chart Order.group_by_year(:ordered_at).count %>
   </div>
