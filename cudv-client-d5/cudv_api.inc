@@ -59,4 +59,13 @@ function cudv_api_post_order($id, $user_id, $partner, $order_type, $total_price,
     return _cudv_api_post("orders", $post);
 }
 
+function cudv_api_get_donations_org($id) {
+    return _cudv_api_get("donations_orgs", $id);
+}
+
+function cudv_api_post_donations_org($id, $user_id, $name, $registered_at, $budget) {
+    return _cudv_api_post("donations_orgs", array("cu_id" => $id, "user_id" => $user_id, "name" => $name, "registered_at" => date('Y-m-d H:i:s', $registered_at), "budget" => $budget));
+}
+
+
 ?>
