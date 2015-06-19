@@ -1,4 +1,4 @@
-<div>
+<div class="jumbotron">
   <h2> <%= Order.all.count %> orders, <%= Product.all.count %> unique products and <%= User.all.count %> active users <h2>
   <h3> $<%= number_with_delimiter(Order.sum(:total_price).floor) %> Dollars </h3>
 </div>
@@ -14,7 +14,7 @@
       </tr>
       <% User.order(orders_count: :desc).limit(9).drop(2).each do |u| %>
         <tr>
-          <td> <%= u.name %> </td>
+          <td> <%= link_to u.name, "http://www.connectingup.org/user/#{u.cu_id}"  %> </td>
           <td> <%= u.orders_count %> </td>
           <td> $<%= number_with_delimiter(u.orders.sum(:total_price).floor) %> </td>
         </tr>
@@ -31,7 +31,7 @@
       </tr>
       <% Product.order(total_orders: :desc).limit(5).each do |p| %>
         <tr>
-          <td> <%= p.name %> </td>
+          <td> <%= link_to p.name, "http://www.connectingup.org/node/#{p.cu_id}" %> </td>
           <td> <%= p.total_orders %> </td>
         </tr>
       <% end %>
@@ -48,8 +48,8 @@
         </tr>
       <% Order.last(7).reverse.each do |o| %>
         <tr>
-          <td> <%= o.cu_id %>
-          <td> <%= o.user.name %> </td>
+          <td> <%= link_to o.cu_id, "http://www.connectingup.org/admin/store/orders/#{o.cu_id}"  %> </td>
+          <td> <%= link_to o.user.name, "http://www.connectingup.org/user/#{o.user.cu_id}" %> </td>
           <td> <%= o.ordered_at %> </td>
         </tr>
       <% end %>
@@ -69,6 +69,20 @@
  </div>
 
 <div class="row">
+  <div class="col-md-12">
+    <h3> Orders per partner (Last 12 months) </h3>
+    <%= line_chart Order.where(ordered_at: 12.months.ago..Date.today).group(:partner).group_by_month(:ordered_at).count %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3> Orders per partner (Last 24 month) </h3>
+    <%= line_chart Order.where(ordered_at: 24.months.ago..Date.today).group(:partner).group_by_month(:ordered_at).count %>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-4">
     <h3> Orders per day (Last 7 days) </h3>
     <%= column_chart Order.where(ordered_at: 1.week.ago..Date.today).group_by_day(:ordered_at).count %>
@@ -84,15 +98,8 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+  <div class="col-md-12">
     <h3> Orders per year </h3>
     <%= column_chart Order.group_by_year(:ordered_at).count %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <h3> Orders per partner (Last 12 months) </h3>
-    <%= line_chart Order.where(ordered_at: 12.months.ago..Date.today).group(:partner).group_by_month(:ordered_at).count %>
   </div>
 </div>
