@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617154607) do
+ActiveRecord::Schema.define(version: 20150619073239) do
+
+  create_table "donations_orgs", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4,   null: false
+    t.string   "name",          limit: 255, null: false
+    t.integer  "cu_id",         limit: 4,   null: false
+    t.datetime "registered_at",             null: false
+    t.string   "status",        limit: 255
+    t.float    "budget",        limit: 24,  null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "donations_orgs", ["user_id"], name: "index_donations_orgs_on_user_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id",     limit: 4,   null: false
@@ -51,5 +64,6 @@ ActiveRecord::Schema.define(version: 20150617154607) do
     t.integer  "orders_count",  limit: 4,   default: 0
   end
 
+  add_foreign_key "donations_orgs", "users"
   add_foreign_key "orders", "users"
 end

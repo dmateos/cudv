@@ -103,3 +103,25 @@
     <%= column_chart Order.group_by_year(:ordered_at).count %>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3> Donations org reg per day (Last 7 days) </h3>
+    <%= column_chart DonationsOrg.where(registered_at: 1.week.ago..Date.today).group_by_day(:registered_at).count %>
+  </div>
+  <div class="col-md-4">
+    <h3> Donations org regper week (Last 7 weeks) </h3>
+    <%= column_chart DonationsOrg.where(registered_at: 7.week.ago..Date.today).group_by_week(:registered_at).count %>
+  </div>
+  <div class="col-md-4">
+    <h3> Donations org reg per month (Last 12 months)</h3>
+    <%= column_chart DonationsOrg.where(registered_at: 12.months.ago..Date.today).group_by_month(:registered_at).count %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3> Donations Org registrations per year </h3>
+    <%= column_chart DonationsOrg.group_by_year(:registered_at).count %>
+  </div>
+</div>
